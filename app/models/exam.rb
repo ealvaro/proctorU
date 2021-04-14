@@ -1,3 +1,3 @@
 class Exam < ApplicationRecord
-  belongs_to :exam_window
+  has_one :exam_window
 end
