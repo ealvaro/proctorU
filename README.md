@@ -5,11 +5,17 @@ Request parameters:
 
 {
   first_name: String,
+
   last_name: String,
+  
   phone_number: String,
+  
   college_id: Integer,
+  
   exam_id: Integer,
+  
   start_time: DateTime
+
 }
 
 Acceptance Criteria:
@@ -40,15 +46,16 @@ Data Models to Consider:
 
 
 Architectural questions to consider:
-Does the code function?
-Is the code understandable?
-Is the code maintainable? Modular?
-Does the code have redundancy? Is there related code that can be deleted?
-Does the code have performance issues?
-Does the code have security vulnerabilities?
-Is the code testable?
-Is the code tested? (System/Unit)
-Is it easy for developers to set up this project? (Seed data)
+
+* Does the code function?
+* Is the code understandable?
+* Is the code maintainable? Modular?
+* Does the code have redundancy? Is there related code that can be deleted?
+* Does the code have performance issues?
+* Does the code have security vulnerabilities?
+* Is the code testable?
+* Is the code tested? (System/Unit)
+* Is it easy for developers to set up this project? (Seed data)
 
 * Ruby version
 2.7.2
@@ -58,13 +65,49 @@ Is it easy for developers to set up this project? (Seed data)
 * Configuration
 
 * Database creation
-sqlite
+
+```shell
+rake db:create
+```
 
 * Database initialization
-seeds
+
+```shell
+rake db:seed
+```
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+* Assumptions
 
-* Deployment instructions
+Some of the endpoint specs were not determined so the following assumptions were made:
+
+** endpoint was named `validate`
+** endpoint is a POST and must have a body with the Request parameters in json format
+** user id must be passed as a path parameter
+** response is either 200 with following json response
+```json
+{
+    "true": "Valid User"
+}
+```
+** or response is 400 with following json response or similar 
+```json
+{
+    "validation_error": [
+        "Missing/Invalid Start Time"
+    ]
+}
+```
+
+* Testing the endpoint
+```shell
+curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{
+  "first_name": "Ji",
+  "last_name": "Legros",
+  "phone_number": "853-715-9077",
+  "college_id": 4,
+  "exam_id": 16,
+  "start_time": "2021-04-24 11:30:00"
+}' http://localhost:3000/users/3/validate
+```
