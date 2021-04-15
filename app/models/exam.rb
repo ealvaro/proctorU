@@ -1,4 +1,4 @@
 class Exam < ApplicationRecord
-  has_one :exam_window
+  has_many :exam_windows, dependent: :destroy
   belongs_to :college
 end
