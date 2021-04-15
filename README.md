@@ -57,12 +57,16 @@ Architectural questions to consider:
 * Is the code tested? (System/Unit)
 * Is it easy for developers to set up this project? (Seed data)
 
+Specs:
+
 * Ruby version
+
 2.7.2
 
 * System dependencies
 
-* Configuration
+`faker` gem for seeds
+`rspec` gem for testing
 
 * Database creation
 
@@ -73,25 +77,30 @@ rake db:create
 * Database initialization
 
 ```shell
+rake db:migrate
 rake db:seed
 ```
 
 * How to run the test suite
 
+```shell
+rspec
+```
+
 * Assumptions
 
 Some of the endpoint specs were not determined so the following assumptions were made:
 
-** endpoint was named `validate`
-** endpoint is a POST and must have a body with the Request parameters in json format
-** user id must be passed as a path parameter
-** response is either 200 with following json response
+* endpoint was named `validate`
+* endpoint is a POST and must have a body with the Request parameters in json format
+* user id for the user to be validated must be passed as a path parameter
+* response is either 200 with following json response
 ```json
 {
     "true": "Valid User"
 }
 ```
-** or response is 400 with following json response or similar 
+* or response is 400 with following json response or similar 
 ```json
 {
     "validation_error": [
