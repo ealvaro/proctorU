@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   # POST /users/validate
   def validate
+    user_params
     @errors = []
     render json: {true: 'Valid User'} and return if validations
     render json: { validation_error: @errors }, status: 400
@@ -18,8 +19,7 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      # params.require(:user).permit(:first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
-      params.require(:user, :first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
+      params.permit(:first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
     end
 
 end

@@ -5,10 +5,10 @@ module UserValidations
 
   INVALID = "Missing/Invalid".freeze
   def validations
-    fn_same?(params[:first_name])         &&
-      ln_same?(params[:last_name])        &&
-      college_same?(params[:college_id])  &&
-      exam_same?(params[:exam_id])        &&
+    fn_same?(params[:first_name])         &
+      ln_same?(params[:last_name])        &
+      college_same?(params[:college_id])  &
+      exam_same?(params[:exam_id])        &
       time_same?(params[:exam_id], params[:start_time])
   end
 
