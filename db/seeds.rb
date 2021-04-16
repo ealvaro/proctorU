@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -16,26 +18,25 @@ end
 
 20.times do
   Exam.create!(
-      title:  "Exam on #{Faker::GreekPhilosophers.unique.name}",
-    college:  College.find(rand(1..10))
-    )
+    title: "Exam on #{Faker::GreekPhilosophers.unique.name}",
+    college: College.find(rand(1..10))
+  )
 end
 
 24.times do
   time = Faker::Time.forward(days: rand(1..14), period: :morning)
   ExamWindow.create!(
-          exam: Exam.find(rand(1..20)),
+    exam: Exam.find(rand(1..20)),
     start_time: time,
-      end_time: time + 1.hour
-        )
+    end_time: time + 1.hour
+  )
 end
 
 10.times do
   User.create!(
-      first_name: Faker::Name.first_name,
-      last_name:  Faker::Name.last_name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     phone_number: Faker::PhoneNumber.cell_phone,
-        college:  College.find(rand(1..10))
-    )
+    college: College.find(rand(1..10))
+  )
 end
-

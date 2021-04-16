@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
-
-RSpec.describe "UsersController", type: :request do
-
+# This tests the Users controller endpoints
+RSpec.describe 'UsersController', type: :request do
   let!(:t_college) { College.create(name: 'Test University') }
   let!(:t_exam) { Exam.create(title: 'Test Exam', college: t_college) }
   let!(:t_exam_window) { ExamWindow.create(start_time: Time.now, end_time: Time.now + 1.hour, exam: t_exam) }
   let!(:t_user) { User.create(first_name: 'John', last_name: 'Doe', phone_number: '954-555-1212', college: t_college) }
-  let(:valid_input) {{
-    "first_name": t_user.first_name,
-    "last_name": t_user.last_name,
-    "phone_number": t_user.phone_number,
-    "college_id": t_college.id,
-    "exam_id": t_exam.id,
-    "start_time": t_exam_window.start_time + (1 * 60)}}
-  let(:invalid_input) {valid_input.except!(:last_name)}
-  let(:invalid_input2) {invalid_input.except!(:college_id)}
+  let(:valid_input) {
+    {
+      "first_name": t_user.first_name,
+      "last_name": t_user.last_name,
+      "phone_number": t_user.phone_number,
+      "college_id": t_college.id,
+      "exam_id": t_exam.id,
+      "start_time": t_exam_window.start_time + (1 * 60)
+    }
+  }
+  let(:invalid_input) { valid_input.except!(:last_name) }
+  let(:invalid_input2) { invalid_input.except!(:college_id) }
 
-  describe 'a correct user validation'  do
-
-    it "returns http success" do
-
+  describe 'a correct user validation' do
+    it 'returns http success' do
       # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", valid_input
       # post "/users/:id/validate", params: { id: t_user.id }, body: valid_input.to_json, as: :json
@@ -32,9 +34,8 @@ RSpec.describe "UsersController", type: :request do
     end
   end
 
-  describe 'user validation failed due to missing last name'  do
-
-    it "returns http 400" do
+  describe 'user validation failed due to missing last name' do
+    it 'returns http 400' do
       # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", invalid_input
 
@@ -47,9 +48,8 @@ RSpec.describe "UsersController", type: :request do
     end
   end
 
-  describe 'user validation failed due to additional stuff missing'  do
-
-    it "returns http 400" do
+  describe 'user validation failed due to additional stuff missing' do
+    it 'returns http 400' do
       # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", invalid_input2
 
