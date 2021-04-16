@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   # POST /users/validate
   def validate
-    byebug
     user_params
     @errors = []
     render json: { true: 'Valid User' } and return if validations
@@ -24,7 +23,7 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:id, :first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
+      params.permit(:id, :first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
     end
 
 end

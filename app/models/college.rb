@@ -4,7 +4,6 @@ class College < ApplicationRecord
   validates :name, presence: true
 
   def has_exam?(exam_id)
-    byebug
     exams.pluck(:id).include?(exam_id)
   end
 end
