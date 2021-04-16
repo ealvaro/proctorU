@@ -23,12 +23,12 @@ module UserValidations
   end
 
   def college_same?(id)
-    @errors << "#{INVALID} College ID" if id.nil? || @user.college.id != id
+    @errors << "#{INVALID} College ID" if id.nil? || @user.college.id != id.to_i
     @errors.empty?
   end
 
   def exam_same?(id)
-    @errors << "#{INVALID} Exam ID" if id.nil? || !@user.college.exams.pluck(:id).include?(id)
+    @errors << "#{INVALID} Exam ID" if id.nil? || !@user.college.exams.pluck(:id).include?(id.to_i)
     @errors.empty?
   end
 
