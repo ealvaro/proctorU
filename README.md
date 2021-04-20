@@ -84,7 +84,7 @@ rake db:seed
 * How to run the test suite
 
 ```shell
-rspec
+rspec spec/requests/validate_user.rb
 ```
 
 * Assumptions
@@ -109,7 +109,7 @@ Some of the endpoint specs were not determined so the following assumptions were
 }
 ```
 
-* Testing the endpoint
+* Testing the endpoint (make sure the testing data exists in your db)
 ```shell
 curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{
   "first_name": "Ji",

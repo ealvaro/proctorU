@@ -34,7 +34,7 @@ RSpec.describe 'UsersController', type: :request do
 
   describe 'a correct user validation without :id param' do
     it 'returns http success' do
-      post "/users/validate", valid_input
+      post '/users/validate', valid_input
       expect(response.body).to eq('{"response":"Valid User"}')
       expect(response.status).to eq(200)
     end
@@ -50,7 +50,7 @@ RSpec.describe 'UsersController', type: :request do
 
   describe 'user validation without :id param failed due to missing last name' do
     it 'returns http 400' do
-      post "/users/validate", invalid_input
+      post '/users/validate', invalid_input
       expect(response.body).to eq('{"validation_error":["Missing/Invalid User"]}')
       expect(response.status).to eq(400)
     end

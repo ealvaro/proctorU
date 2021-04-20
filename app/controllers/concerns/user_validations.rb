@@ -5,19 +5,18 @@ module UserValidations
   include ActiveSupport::Concern
 
   INVALID = 'Missing/Invalid'
+  # rubocop:disable Metrics/AbcSize
   def validations
     @errors = []
-    if @user.nil?
-      @errors << "#{INVALID} User"
-      false
-    else
+    @errors << "#{INVALID} User" and return false if @user.nil?
+
     fn_same?(params[:first_name])         &
       ln_same?(params[:last_name])        &
       college_same?(params[:college_id])  &
       exam_same?(params[:exam_id])        &
       time_same?(params[:exam_id], params[:start_time])
-    end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def fn_same?(first)
     @errors << "#{INVALID} First Name" if first.nil? || @user.first_name != first # This one is mandatory
@@ -41,6 +40,7 @@ module UserValidations
 
   def time_same?(exam_id, start)
     return if exam_id.nil?
+
     @errors << "#{INVALID} Start Time" if start.nil? || !found_time_slot(exam_id, start)
     @errors.empty?
   end
