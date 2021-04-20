@@ -6,11 +6,17 @@ module UserValidations
 
   INVALID = 'Missing/Invalid'
   def validations
+    @errors = []
+    if @user.nil?
+      @errors << "#{INVALID} User"
+      false
+    else
     fn_same?(params[:first_name])         &
       ln_same?(params[:last_name])        &
       college_same?(params[:college_id])  &
       exam_same?(params[:exam_id])        &
       time_same?(params[:exam_id], params[:start_time])
+    end
   end
 
   def fn_same?(first)

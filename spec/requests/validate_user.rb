@@ -20,44 +20,46 @@ RSpec.describe 'UsersController', type: :request do
   let(:invalid_input) { valid_input.except!(:last_name) }
   let(:invalid_input2) { invalid_input.except!(:college_id) }
 
-  describe 'a correct user validation' do
+  describe 'a correct user validation with :id param' do
     it 'returns http success' do
-      # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", valid_input
-      # post "/users/:id/validate", params: { id: t_user.id }, body: valid_input.to_json, as: :json
       # 'response' is a special object which contain HTTP response received after a request is sent
       # response.body is the body of the HTTP response, which here contain a JSON string
-      expect(response.body).to eq('{"true":"Valid User"}')
+      expect(response.body).to eq('{"response":"Valid User"}')
 
       # we can also check the http status of the response
       expect(response.status).to eq(200)
     end
   end
 
-  describe 'user validation failed due to missing last name' do
+  describe 'a correct user validation without :id param' do
+    it 'returns http success' do
+      post "/users/validate", valid_input
+      expect(response.body).to eq('{"response":"Valid User"}')
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe 'user validation with :id param failed due to missing last name' do
     it 'returns http 400' do
-      # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", invalid_input
-
-      # 'response' is a special object which contain HTTP response received after a request is sent
-      # response.body is the body of the HTTP response, which here contain a JSON string
       expect(response.body).to eq('{"validation_error":["Missing/Invalid Last Name"]}')
+      expect(response.status).to eq(400)
+    end
+  end
 
-      # we can also check the http status of the response
+  describe 'user validation without :id param failed due to missing last name' do
+    it 'returns http 400' do
+      post "/users/validate", invalid_input
+      expect(response.body).to eq('{"validation_error":["Missing/Invalid User"]}')
       expect(response.status).to eq(400)
     end
   end
 
   describe 'user validation failed due to additional stuff missing' do
     it 'returns http 400' do
-      # this will perform a GET request to the /health/index route
       post "/users/#{t_user.id}/validate", invalid_input2
-
-      # 'response' is a special object which contain HTTP response received after a request is sent
-      # response.body is the body of the HTTP response, which here contain a JSON string
       expect(response.body).to eq('{"validation_error":["Missing/Invalid Last Name","Missing/Invalid College ID"]}')
-
-      # we can also check the http status of the response
       expect(response.status).to eq(400)
     end
   end

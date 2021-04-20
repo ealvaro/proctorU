@@ -9,21 +9,24 @@ class UsersController < ApplicationController
   def validate
     user_params
     @errors = []
-    render json: { true: 'Valid User' } and return if validations
+    render json: { response: 'Valid User' } and return if validations
 
     render json: { validation_error: @errors }, status: 400
   end
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    if params[:id]
       @user = User.find(params[:id])
+    elsif params[:first_name] && params[:last_name]
+      @user = User.find_by_first_and_last_name(params[:first_name], params[:last_name])
     end
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.permit(:id, :first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
-    end
-
+  # Only allow a trusted parameter "white list" through.
+  def user_params
+    params.permit(:id, :first_name, :last_name, :phone_number, :college_id, :exam_id, :start_time)
+  end
 end
