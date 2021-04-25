@@ -2,8 +2,18 @@
 
 # This controller handles the endpoints for the Users
 class UsersController < ApplicationController
+  include ActionController::MimeResponds
   include UserValidations
-  before_action :set_user, only: [:validate]
+  before_action :set_user, only: [:validate, :index]
+
+  # GET /users
+  def index
+    @users = User.all
+    respond_to do |format|
+      format.json { render @users }
+      format.html { render json: @users }
+    end
+  end
 
   # POST /users/validate
   def validate

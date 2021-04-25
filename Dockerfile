@@ -38,3 +38,8 @@ CMD ["rails", "server", "-b", "0.0.0.0"]
 #
 # Remove containers according to a pattern
 # docker ps -a | grep "pattern" | awk '{print $1}' | xargs docker rm
+#
+# Kill stuck containers
+# ps aux | grep <<container id>> | awk '{print $1 $2}'
+# <<user>><<process id>>
+# sudo kill -9 <<process id from above command>>
