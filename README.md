@@ -67,24 +67,22 @@ Specs:
 
 `faker` gem for seeds
 `rspec` gem for testing
+`pg` gem for postgres DB
+`jbuilder` for templating
+`dotenv-rails` for env. vars. management
 
-* Database creation
-
-```shell
-rake db:create
-```
-
-* Database initialization
+* Webapp & Database creation and initialization
 
 ```shell
-rake db:migrate
-rake db:seed
+docker-compose build
+docker-compose up
+docker-compose run app rake db:create db:migrate db:seed
 ```
 
 * How to run the test suite
 
 ```shell
-rspec spec/requests/validate_user.rb
+docker-compose run app rspec spec/requests/validate_user.rb
 ```
 
 * Assumptions
@@ -109,7 +107,7 @@ Some of the endpoint specs were not determined so the following assumptions were
 }
 ```
 
-* Testing the endpoint (make sure the testing data exists in your db)
+* Testing the `validate` endpoint (make sure the testing data exists in your db or you will get validation errors)
 ```shell
 curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{
   "first_name": "Ji",
@@ -119,4 +117,9 @@ curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json
   "exam_id": 16,
   "start_time": "2021-04-24 11:30:00"
 }' http://localhost:3000/users/3/validate
+```
+
+* Testing the `list of users` endpoint
+```shell
+curl -i -X GET -H "Content-Type: application/json" -H "Accept: application/json" http://localhost:3000/users
 ```

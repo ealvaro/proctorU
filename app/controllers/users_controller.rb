@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.json { render @users }
-      format.html { render json: @users }
+      format.html { render json: @users.to_json }
     end
   end
 

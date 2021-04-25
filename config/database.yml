@@ -3,12 +3,12 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  username: <%= ENV['PROCTOR_DB_USERNAME'] %>  #postgres
-  host: <%= ENV['PROCTOR_DB_HOSTNAME'] %>    #postgres
+  username: <%= ENV['PROCTOR_DB_USERNAME'] %>
+  host: <%= ENV['PROCTOR_DB_HOSTNAME'] %>
   port: 5432
 development:
   <<: *default
-  database: <%= ENV['PROCTOR_DB_NAME'] %> #app_development
+  database: <%= ENV['PROCTOR_DB_NAME'] %>
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run
 # "rake". Do not set this db to the same as development or
