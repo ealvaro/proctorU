@@ -1,3 +1,1 @@
-json.array! @users.each do |user|
-  json.partial! 'user', locals: { user: user }
-end
+json.array! @users, partial: 'users/user', as: :user

@@ -71,18 +71,38 @@ Specs:
 `jbuilder` for templating
 `dotenv-rails` for env. vars. management
 
-* Webapp & Database creation and initialization
+* Webapp VM creation
 
 ```shell
-docker-compose build
-docker-compose up
-docker-compose run app rake db:create db:migrate db:seed
+sudo docker build .
+```
+
+* Webapp & Database VMs composition and start
+```shell
+sudo docker-compose build
+sudo docker-compose up
+```
+
+* Database initialization (run from a different console)
+```shell
+sudo docker-compose run app rake db:create db:migrate db:seed
 ```
 
 * How to run the test suite
 
 ```shell
-docker-compose run app rspec spec/requests/validate_user.rb
+sudo docker-compose run app rspec spec/requests/validate_user.rb
+```
+
+* How to test it from a web browser
+
+** Get all users
+<http://localhost:3000/users.json>
+
+* How to stop the webapp and database
+
+```shell
+sudo docker-compose stop
 ```
 
 * Assumptions
