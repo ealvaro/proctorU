@@ -16,27 +16,27 @@
   )
 end
 
-20.times do
+20.times do |index|
   Exam.create!(
     title: "Exam on #{Faker::GreekPhilosophers.unique.name}",
-    college: College.find(rand(1..10))
+    college: College.find(index/2 + 1)
   )
 end
 
-24.times do
+40.times do |index|
   time = Faker::Time.forward(days: rand(1..14), period: :morning)
   ExamWindow.create!(
-    exam: Exam.find(rand(1..20)),
+    exam: Exam.find(index/2 + 1),
     start_time: time,
     end_time: time + 1.hour
   )
 end
 
-10.times do
+10.times do |index|
   User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     phone_number: Faker::PhoneNumber.cell_phone,
-    college: College.find(rand(1..10))
+    college: College.find(index + 1)
   )
 end
