@@ -115,7 +115,7 @@ Some of the endpoint specs were not determined so the following assumptions were
 * response is either 200 with following json response
 ```json
 {
-    "true": "Valid User"
+    "response":"Valid User"
 }
 ```
 * or response is 400 with following json response or similar 
